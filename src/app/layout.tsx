@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'UlcerAid',
+  title: 'Estigma Doc',
   description: 'Plataforma informativa y funcional para el tratamiento de heridas ulcerosas.',
 };
 

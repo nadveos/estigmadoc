@@ -34,7 +34,7 @@ export function AppHeader() {
           <Link href="#home" onClick={(e) => handleLinkClick(e, '#home')} className="flex items-center gap-2">
             <Stethoscope className="h-6 w-6 text-accent" />
             <span className="font-bold text-lg font-headline">
-              UlcerAid
+              Estigma Doc
             </span>
           </Link>
         </div>
