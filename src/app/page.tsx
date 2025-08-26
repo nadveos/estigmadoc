@@ -21,7 +21,7 @@ export default function Home() {
               Cuidado experto para heridas ulcerosas
             </h1>
             <p className="max-w-[600px] text-muted-foreground md:text-xl">
-              En UlcerAid, combinamos experiencia y empatía para ofrecerle el mejor tratamiento y apoyo en su proceso de curación.
+              En Estigma Doc, combinamos experiencia y empatía para ofrecerle el mejor tratamiento y apoyo en su proceso de curación.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
