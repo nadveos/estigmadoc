@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { appointmentSchema, type AppointmentInput } from "@/app/actions/submit-appointment";
+import { z } from "zod";
 import { submitAppointment } from "@/app/actions/submit-appointment";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -11,6 +11,16 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Loader2 } from "lucide-react";
+
+const appointmentSchema = z.object({
+  name: z.string().min(3, { message: "El nombre debe tener al menos 3 caracteres." }),
+  email: z.string().email({ message: "Por favor ingrese un correo válido." }),
+  phone: z.string().min(8, { message: "Por favor ingrese un número de teléfono válido." }),
+  message: z.string().optional(),
+});
+
+type AppointmentInput = z.infer<typeof appointmentSchema>;
+
 
 export function AppointmentSection() {
   const { toast } = useToast();
