@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { pb } from "@/lib/pocketbase";
+import { getAuthenticatedPocketBase } from "@/lib/pocketbase";
 
 const appointmentSchema = z.object({
   name: z.string().min(3, { message: "El nombre debe tener al menos 3 caracteres." }),
@@ -15,6 +15,7 @@ export type AppointmentInput = z.infer<typeof appointmentSchema>;
 export async function submitAppointment(data: AppointmentInput) {
   try {
     const validatedData = appointmentSchema.parse(data);
+    const pb = await getAuthenticatedPocketBase();
     const record = await pb.collection("appointments").create(validatedData);
     return { success: true, data: record };
   } catch (error) {

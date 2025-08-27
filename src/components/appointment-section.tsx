@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { submitAppointment } from "@/app/actions/submit-appointment";
+import { submitAppointment, type AppointmentInput } from "@/app/actions/submit-appointment";
 import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -18,8 +18,6 @@ const appointmentSchema = z.object({
   phone: z.string().min(8, { message: "Por favor ingrese un número de teléfono válido." }),
   message: z.string().optional(),
 });
-
-type AppointmentInput = z.infer<typeof appointmentSchema>;
 
 
 export function AppointmentSection() {
