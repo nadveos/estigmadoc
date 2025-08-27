@@ -4,9 +4,9 @@ import { z } from "zod";
 import { getAuthenticatedPocketBase } from "@/lib/pocketbase";
 
 const appointmentSchema = z.object({
-  name: z.string().min(3, { message: "El nombre debe tener al menos 3 caracteres." }),
-  email: z.string().email({ message: "Por favor ingrese un correo válido." }),
-  phone: z.string().min(8, { message: "Por favor ingrese un número de teléfono válido." }),
+  name: z.string().min(3),
+  email: z.string().email(),
+  phone: z.string().min(8),
   message: z.string().optional(),
 });
 

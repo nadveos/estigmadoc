@@ -7,7 +7,7 @@ let authPromise: Promise<any> | null = null;
 async function authenticate() {
   if (!pb.authStore.isValid) {
     if (!authPromise) {
-      authPromise = pb.admins.authWithPassword(
+      authPromise = pb.collection('users').authWithPassword(
         process.env.POCKETBASE_ADMIN_EMAIL!,
         process.env.POCKETBASE_ADMIN_PASSWORD!
       );
