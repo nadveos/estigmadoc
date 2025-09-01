@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Removed Tailwind directives due to unknown at-rule error */
+/* If using Tailwind, ensure your build tool is configured correctly */
+
+
+body,
+html {
+  font-family: sans-serif;
+}
+
+
 @layer base {
   :root {
     --background: 208 100% 97%; /* #F0F8FF */
@@ -83,6 +93,6 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground p-4;
   }
 }
