@@ -1,10 +1,56 @@
+"use client";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { submitAppointment, type AppointmentInput } from "@/app/actions/submit-appointment";
+import { useToast } from "@/hooks/use-toast";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Loader2 } from "lucide-react";
+
+const appointmentSchema = z.object({
+  name: z.string().min(3, { message: "El nombre debe tener al menos 3 caracteres." }),
+  email: z.string().email({ message: "Por favor ingrese un correo válido." }),
+  phone: z.string().min(8, { message: "Por favor ingrese un número de teléfono válido." }),
+  message: z.string().optional(),
+});
+
 
 export function AppointmentSection() {
+  const { toast } = useToast();
+  const form = useForm<AppointmentInput>({
+    resolver: zodResolver(appointmentSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    },
+  });
+
+  const { formState: { isSubmitting } } = form;
+
+  const onSubmit = async (data: AppointmentInput) => {
+    const result = await submitAppointment(data);
+    if (result.success) {
+      toast({
+        title: "¡Solicitud Enviada!",
+        description: "Gracias por contactarnos. Nos comunicaremos con usted a la brevedad.",
+      });
+      form.reset();
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Error al enviar",
+        description: result.error?.message || "Ocurrió un error. Por favor, inténtelo de nuevo.",
+      });
+    }
+  };
+
   return (
     <div className="container">
       <div className="text-center mb-12">
@@ -19,29 +65,74 @@ export function AppointmentSection() {
           <CardDescription>Su salud es nuestra prioridad. Nos comunicaremos para coordinar una cita.</CardDescription>
         </CardHeader>
         <CardContent>
-          <form className="space-y-6">
-            <div className="space-y-2">
-              <Label htmlFor="name">Nombre Completo</Label>
-              <Input id="name" placeholder="Ej: Juan Pérez" />
-            </div>
-            <div className="grid sm:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label htmlFor="email">Correo Electrónico</Label>
-                <Input id="email" type="email" placeholder="juan.perez@email.com" />
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Nombre Completo</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Ej: Juan Pérez" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="grid sm:grid-cols-2 gap-6">
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Correo Electrónico</FormLabel>
+                      <FormControl>
+                        <Input type="email" placeholder="juan.perez@email.com" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Teléfono</FormLabel>
+                      <FormControl>
+                        <Input type="tel" placeholder="11 2345 6789" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="phone">Teléfono</Label>
-                <Input id="phone" type="tel" placeholder="11 2345 6789" />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="message">Mensaje (Opcional)</Label>
-              <Textarea id="message" placeholder="Describa brevemente su consulta..." />
-            </div>
-            <Button type="submit" size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
-              Enviar Solicitud
-            </Button>
-          </form>
+              <FormField
+                control={form.control}
+                name="message"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Mensaje (Opcional)</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Describa brevemente su consulta..." {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Enviando...
+                  </>
+                ) : (
+                  "Enviar Solicitud"
+                )}
+              </Button>
+            </form>
+          </Form>
         </CardContent>
       </Card>
     </div>
