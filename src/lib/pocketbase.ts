@@ -17,7 +17,7 @@ export async function getAuthenticatedPocketBase() {
   // We authenticate with admin credentials for every server-side operation
   // that requires it. This is a secure and stateless approach suitable for
   // server actions.
-  await pb.collection('admins').authWithPassword(
+  await pb.collection('_superusers').authWithPassword(
     process.env.POCKETBASE_ADMIN_EMAIL!,
     process.env.POCKETBASE_ADMIN_PASSWORD!
   );
