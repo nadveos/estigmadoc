@@ -21,19 +21,21 @@ const ChatbotAppointmentRequestOutputSchema = z.object({
 
 export type ChatbotAppointmentRequestOutput = z.infer<typeof ChatbotAppointmentRequestOutputSchema>;
 
-const scheduleAppointmentTool = ai.defineTool({
-  name: 'scheduleAppointment',
-  description: 'Schedules an appointment for the user.',
-  inputSchema: z.object({
-    dateTime: z.string().describe('The date and time for the appointment.'),
-    patientDetails: z.string().describe('The patient details to pass to scheduling system.'),
-  }),
-  outputSchema: z.string().describe('Confirmation message of scheduled appointment.'),
-  async impl(input) {
+const scheduleAppointmentTool = ai.defineTool(
+  {
+    name: 'scheduleAppointment',
+    description: 'Schedules an appointment for the user.',
+    inputSchema: z.object({
+      dateTime: z.string().describe('The date and time for the appointment.'),
+      patientDetails: z.string().describe('The patient details to pass to scheduling system.'),
+    }),
+    outputSchema: z.string().describe('Confirmation message of scheduled appointment.'),
+  },
+  async (input) => {
     // In a real application, this would integrate with a scheduling system.
     return `Appointment scheduled for ${input.dateTime} with patient details: ${input.patientDetails}`;
-  },
-});
+  }
+);
 
 const prompt = ai.definePrompt({
   name: 'chatbotAppointmentPrompt',
