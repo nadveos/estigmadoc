@@ -35,7 +35,7 @@ export function ChatBot() {
   
   useEffect(() => {
     setMessages([
-        { id: 'intro', text: '¡Hola! Soy el asistente virtual de UlcerAid. ¿Cómo puedo ayudarte hoy? Puedes preguntarme sobre el cuidado de heridas o solicitar agendar una cita.', sender: 'bot' }
+        { id: 'intro', text: '¡Hola! Soy el asistente virtual de Estigma Doc. ¿Cómo puedo ayudarte hoy? Puedes preguntarme sobre el cuidado de heridas o solicitar agendar una cita.', sender: 'bot' }
     ]);
   }, []);
 

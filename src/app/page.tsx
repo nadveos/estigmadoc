@@ -1,13 +1,13 @@
-import Image from 'next/image';
-import { AppHeader } from '@/components/header';
-import { AppFooter } from '@/components/footer';
+import { AppointmentSection } from '@/components/appointment-section';
 import { ArticlesSection } from '@/components/articles-section';
 import { CasesSection } from '@/components/cases-section';
-import { AppointmentSection } from '@/components/appointment-section';
 import { ChatBot } from '@/components/chat-bot';
+import { AppFooter } from '@/components/footer';
+import { AppHeader } from '@/components/header';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Stethoscope, ShieldCheck, UserCheck } from 'lucide-react';
+import { ShieldCheck, Stethoscope, UserCheck } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export default function Home() {
@@ -34,7 +34,7 @@ export default function Home() {
           </div>
           <div className="relative">
             <Image
-              src="https://placehold.co/600x400.png"
+              src="https://testauth.meapp.com.ar/api/files/pbc_3607937828/8qw05n602r1j11m/estigma_doc1_zph22fu6fb.png"
               alt="Enfermera atendiendo a un paciente"
               width={600}
               height={400}
