@@ -8,6 +8,7 @@ const appointmentSchema = z.object({
   email: z.string().email(),
   phone: z.string().min(8),
   message: z.string().optional(),
+  isHandled: z.boolean().optional(), // For spam prevention
 });
 
 export type AppointmentInput = z.infer<typeof appointmentSchema>;
