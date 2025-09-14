@@ -10,7 +10,7 @@ jobs:
 
     env:
       IMAGE_NAME: ghcr.io/${{ github.repository }}
-      CAPROVER_APP: EstigmaDoc
+      CAPROVER_APP: estigmadoc
       CAPROVER_SERVER: https://captain.meapp.com.ar/
       CAPROVER_TOKEN: ${{ secrets.CAPROVER_TOKEN }}
 
