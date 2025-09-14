@@ -1,29 +1,28 @@
-# Etapa base
-FROM node:18-alpine AS base
+# Install dependencies only when needed
+FROM node:18-alpine AS deps
 WORKDIR /app
-RUN apk add --no-cache libc6-compat
+COPY package.json package-lock.json* ./
+RUN npm ci
 
-# Etapa de dependencias
-FROM base AS deps
-COPY package.json pnpm-lock.yaml ./
-RUN corepack enable && pnpm install --frozen-lockfile
-
-# Etapa de build
-FROM base AS builder
+# Build the Next.js app
+FROM node:18-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN pnpm build
+RUN npm run build
 
-# Etapa de producción
+# Production image, copy built assets and run Next.js
 FROM node:18-alpine AS runner
 WORKDIR /app
-ENV NODE_ENV=production
-ENV PORT=3000
 
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
+ENV NODE_ENV=production
+
+# Only copy necessary files
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
 
 EXPOSE 3000
-CMD ["node", "server.js"]
+
+CMD ["npm", "start"]
