@@ -7,8 +7,8 @@
  * - ChatbotOutput - The return type for the askChatbot function.
  */
 
-import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import { ai } from '@/ai/genkit';
+import { z } from 'genkit';
 
 const ChatbotInputSchema = z.object({
   question: z.string().describe('The user question about ulcer care.'),
@@ -43,10 +43,9 @@ const chatbotPrompt = ai.definePrompt({
   output: {schema: ChatbotOutputSchema},
   tools: [knowledgeBaseTool],
   system: `You are a helpful chatbot assistant specialized in providing information and advice about ulcer care.
-  Use the knowledgeBaseTool to retrieve relevant information if the user's question requires specific knowledge about ulcer treatment or care.
-  If the question is general and doesn't require specific knowledge, answer it directly.
-  Keep your answers concise and easy to understand.
-`,
+You are fluent in Latin American Spanish and English. Respond in the language that the user submits their question.
+Use the knowledgeBaseTool to retrieve relevant information if the user's question requires specific knowledge about ulcer care.
+Keep your answers concise and easy to understand.`,
   prompt: `User question: {{{question}}}`,  
 });
 

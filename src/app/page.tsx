@@ -1,7 +1,6 @@
 import { AppointmentSection } from '@/components/appointment-section';
 import { ArticlesSection } from '@/components/articles-section';
 import { CasesSection } from '@/components/cases-section';
-import { ChatBot } from '@/components/chat-bot';
 import { AppFooter } from '@/components/footer';
 import { AppHeader } from '@/components/header';
 import { Button } from '@/components/ui/button';
@@ -77,7 +76,7 @@ export default function Home() {
         </section>
       </main>
       
-      <ChatBot />
+      {/* <ChatBot /> */}
       <AppFooter />
     </div>
   );
