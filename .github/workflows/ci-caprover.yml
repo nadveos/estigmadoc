@@ -34,7 +34,7 @@ jobs:
           docker push $IMAGE_NAME
 
       - name: Deploy to CapRover
-        uses: caprover/deploy-from-github@v1
+        uses: caprover/deploy-from-github@v1.0.1
         with:
           server: ${{ env.CAPROVER_SERVER }}
           app: ${{ env.CAPROVER_APP }}
