@@ -1,10 +1,10 @@
-import type {Metadata} from 'next';
+import { Toaster } from "@/components/ui/toaster";
+import type { Metadata } from 'next';
 import './globals.css';
-import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
   title: 'Estigma Doc',
-  description: 'Plataforma informativa y funcional para el tratamiento de heridas ulcerosas.',
+  description: 'Plataforma informativa y funcional para el tratamiento de heridas ulcerosas. Y demas cuidados',
 };
 
 export default function RootLayout({
