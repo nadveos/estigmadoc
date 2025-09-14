@@ -1,4 +1,4 @@
-# **App Name**: UlcerAid
+# **App Name**: EstigmaDoc
 
 ## Core Features:
 

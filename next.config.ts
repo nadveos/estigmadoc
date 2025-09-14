@@ -1,6 +1,6 @@
 import type { NextConfig } from 'next';
-
 const nextConfig: NextConfig = {
+  output: 'standalone',
   /* config options here */
   typescript: {
     ignoreBuildErrors: true,
@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+
   images: {
     remotePatterns: [
       {
@@ -22,7 +23,6 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       }
-
     ],
   },
 };
