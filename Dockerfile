@@ -22,5 +22,5 @@ COPY --from=builder /app/.next/static ./.next/static
 # COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
 
-EXPOSE 3000
+EXPOSE 80
 CMD ["node", "server.js"]
