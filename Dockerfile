@@ -1,6 +1,7 @@
 # Dockerfile for CapRover on ARM64
 # Stage 1: Install dependencies
 FROM node:20-alpine AS deps
+RUN npm install -g npm@11.6.0
 WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm install
@@ -21,7 +22,7 @@ ENV POCKETBASE_ADMIN_PASSWORD=${POCKETBASE_ADMIN_PASSWORD}
 RUN npm run build
 
 # Stage 3: Production image
-FROM --platform=linux/arm64 node:20-alpine AS runner
+FROM node:20-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
