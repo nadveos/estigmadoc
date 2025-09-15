@@ -1,12 +1,12 @@
 # Dockerfile for CapRover on ARM64
 # Stage 1: Install dependencies
-FROM --platform=linux/arm64 node:20-alpine AS deps
+FROM node:20-alpine AS deps
 WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm install
 
 # Stage 2: Build the application
-FROM --platform=linux/arm64 node:20-alpine AS builder
+FROM node:20-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
