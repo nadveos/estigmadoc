@@ -1,26 +1,16 @@
-FROM node:lts-alpine AS base
+# Imagen base compatible con ARM64
+FROM node:18-alpine
 
-# Stage 1: Install dependencies
-FROM base AS deps
+# Crear directorio de trabajo
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
-RUN corepack enable pnpm && pnpm install --frozen-lockfile
 
-# Stage 2: Build the application
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-RUN corepack enable pnpm && pnpm run build
+# Copiar solo los archivos necesarios
+COPY .next/standalone ./
+COPY .next/static .next/static
+COPY public/ public/
 
-# Stage 3: Production server
-FROM base AS runner
-WORKDIR /app
-ENV NODE_ENV=production
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-# COPY --from=builder /app/public ./public
-COPY --from=builder /app/node_modules ./node_modules
-ENV PORT=3000
+# Exponer el puerto
 EXPOSE 3000
+
+# Comando de inicio
 CMD ["node", "server.js"]
