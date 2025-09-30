@@ -12,4 +12,4 @@ COPY .next/static .next/static
 EXPOSE 3000
 
 # Comando de inicio
-CMD ["node", "server.js"]
+CMD ["node", "server.js", "-p", "3000", "-H", "0.0.0.0"]
