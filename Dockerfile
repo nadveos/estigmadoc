@@ -7,7 +7,6 @@ WORKDIR /app
 # Copiar solo los archivos necesarios
 COPY .next/standalone ./
 COPY .next/static .next/static
-COPY public/ public/
 
 # Exponer el puerto
 EXPOSE 3000
